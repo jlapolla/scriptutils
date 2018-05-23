@@ -1,2 +1,4 @@
-/src/jlapolla.scriptutils.egg-info/
+/src/jlapolla_scriptutils.egg-info/
+/.pytest_cache/
 /.tox/
+*.pyc
