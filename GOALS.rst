@@ -45,27 +45,27 @@ number of strings to the ``run()`` method.
 
 Configuration options include:
 
-:ignore_failure
+ignore_failure
   ignore non-zero exit status; default throws an exception
 
-:silent
+silent
   do not produce output on stdout or stderr; default echoes output to
   ``sys.stdout`` and ``sys.stderr``
 
-:silent_stdout
+silent_stdout
   do not produce output on stdout
 
-:silent_stderr
+silent_stderr
   do not produce output on stderr
 
-:stdin_from
+stdin_from
   file object to act as command's stdin; default ``sys.stdin``
 
-:stdout_to
+stdout_to
   file object to duplicate stdout on; this file will be written to even in
   silent mode
 
-:stderr_to
+stderr_to
   file object to duplicate stderr on; this file will be written to even in
   silent mode
 
