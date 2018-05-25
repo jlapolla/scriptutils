@@ -61,11 +61,14 @@ silent_stderr
 stdin_from
   file object to act as command's stdin; default ``sys.stdin``
 
-stdout_to
+tee_stdin
+  file object to duplicate stdin on
+
+tee_stdout
   file object to duplicate stdout on; this file will be written to even in
   silent mode
 
-stderr_to
+tee_stderr
   file object to duplicate stderr on; this file will be written to even in
   silent mode
 
