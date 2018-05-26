@@ -45,49 +45,51 @@ number of strings to the ``run()`` method.
 
 Configuration options include:
 
-ignore_failure
-  ignore non-zero exit status; default throws an exception
+``nonzero_exit='throw' (str)``
+  action to take on non-zero exit status
+    - ``'throw'``: throw exception on non-zero exit status
+    - ``'ignore'``: ignore non-zero exit status
 
-silent
-  do not produce output on stdout or stderr; default echoes output to
-  ``sys.stdout`` and ``sys.stderr``
+``print=True (bool)``
+  alias to control both ``print_stdout`` and ``print_stderr`` options
 
-silent_stdout
-  do not produce output on stdout
+``print_stdout (bool)``
+  print command's stdout on ``sys.stdout``
 
-silent_stderr
-  do not produce output on stderr
+``print_stderr (bool)``
+  print command's stderr on ``sys.stderr``
 
-stdin_from
-  file object to act as command's stdin; default ``sys.stdin``
+``stdin=sys.stdin (file)``
+  readable file object to act as command's stdin
 
-tee_stdin
-  file object to duplicate stdin on
+``stdin_log=None (file)``
+  writable file object to duplicate command's stdin
 
-tee_stdout
-  file object to duplicate stdout on; this file will be written to even in
-  silent mode
+``stdout_log=None (file)``
+  writable file object to duplicate command's stdout
 
-tee_stderr
-  file object to duplicate stderr on; this file will be written to even in
-  silent mode
+``stderr_log=None (file)``
+  writable file object to duplicate command's stderr
 
-User may re-configure CommandRunner after creation, but this is always
-done through a context manager. For example:
+Conceptually, a ``CommandRunner`` is configured in its constructor, and
+is immutable after creation. The only way to re-configure a
+``CommandRunner`` after construction is through a context manager. For
+example:
 
 .. code:: python
 
   cmdrunner.run('echo', 'you can see this')
-  with cmdrunner.configure(silent=true):
+  with cmdrunner.reconfigure(silent=true):
     cmdrunner.run('echo', 'you cannot see this')
   cmdrunner.run('echo', 'you can see this too')
 
 Conceptually, the user does not inspect the output or return status of a
-command. Therefore, the command API:
+command. Therefore, the ``CommandRunner`` API:
 
 - always returns ``None``
 - never buffers command output in memory; it is suitable for commands
   that run forever or produce infinite output
 
 Running a command is a blocking operation. Commands do not run in the
-background (use ``AsyncCommandRunner`` for that).
+background. As a result, you cannot pipe the output of one command to
+the input of another.
